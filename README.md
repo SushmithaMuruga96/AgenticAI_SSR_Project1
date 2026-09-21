@@ -53,8 +53,8 @@ Embeddings run **locally** via `sentence-transformers` — no additional key nee
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/waseemkhan606/Single-Source-Retrieval.git
-cd Single-Source-Retrieval
+git clone https://github.com/waseemkhan606/AgenticAI_SSR_Project1.git
+cd AgenticAI_SSR_Project1
 ```
 
 ### 2. Configure backend secrets
@@ -104,7 +104,7 @@ Open a **new terminal tab**, navigate to the project root, then into the fronten
 
 ```bash
 # If you opened a fresh terminal tab, navigate to the project root first:
-cd path/to/Single-Source-Retrieval
+cd path/to/AgenticAI_SSR_Project1
 
 cd frontend
 
