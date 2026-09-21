@@ -3,6 +3,10 @@
 > RAG-powered AI assistant with a cosmic glassmorphism UI.
 > Upload PDFs, ask questions with text or voice, get intelligent answers grounded in your documents.
 
+# Domain
+
+Lecture Notes Q&A (React JS)
+
 ---
 
 ## Tech Stack
@@ -41,6 +45,86 @@ Only **one** API key is required:
 | `OPENROUTER_API_KEY` | https://openrouter.ai/keys | LLM (Gemini 2.5 Flash) |
 
 Embeddings run **locally** via `sentence-transformers` — no additional key needed.
+
+---
+
+## Option A — Run Locally (without Docker)
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/waseemkhan606/Single-Source-Retrieval.git
+cd Single-Source-Retrieval
+```
+
+### 2. Configure backend secrets
+
+```bash
+cp backend/.env.example backend/.env
+```
+
+Open `backend/.env` and set your key:
+
+```env
+OPENROUTER_API_KEY=sk-or-v1-your-key-here
+```
+
+Leave everything else as-is unless you want to change ports or paths.
+
+### 3. Start the backend
+
+```bash
+cd backend
+python -m venv .venv
+
+# Mac/Linux:
+source .venv/bin/activate
+
+# Windows (PowerShell):
+.venv\Scripts\Activate.ps1
+
+pip install -r requirements.txt
+```
+
+> **This step downloads PyTorch and other large packages (~1.5 GB total). It will take 5–15 minutes on first run.** That's normal — do not cancel it.
+
+```bash
+uvicorn app.main:app --reload --port 8000
+```
+
+> On first start the backend downloads the embedding model (~90 MB from Hugging Face). Wait for the line below before continuing:
+
+```
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+```
+
+### 4. Start the frontend (open a new terminal tab)
+
+Open a **new terminal tab**, navigate to the project root, then into the frontend:
+
+```bash
+# If you opened a fresh terminal tab, navigate to the project root first:
+cd path/to/Single-Source-Retrieval
+
+cd frontend
+
+# Mac/Linux:
+cp .env.local.example .env.local
+
+# Windows (PowerShell):
+copy .env.local.example .env.local
+
+npm install
+npm run dev
+```
+
+> `.env.local` sets `NEXT_PUBLIC_API_URL=http://localhost:8000`. You only need to edit this value if your backend runs on a different port.
+
+### 5. Open the app
+
+Navigate to **http://localhost:3000**
+
+Verify the backend is reachable at **http://localhost:8000/health** — you should see `{"status":"ok"}`.
 
 ---
 
